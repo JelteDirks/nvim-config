@@ -19,9 +19,8 @@ let mapleader = " "
 
 call plug#begin("~/.config/nvim/plugged")
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'ellisonleao/gruvbox.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
@@ -30,8 +29,7 @@ call plug#end()
 set background=dark
 colorscheme gruvbox
 
-lua require("telescope-fzf")
-lua require("nvim-tree-sitter")
+lua require("treesitter")
 lua require("devicons")
 lua require("statusline")
 
