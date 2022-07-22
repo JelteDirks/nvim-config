@@ -7,11 +7,8 @@ require('nvim-treesitter.configs').setup {
         "go", 
         "c",
         "lua",
-        "java",
-        "c_sharp",
         "dockerfile",
         "json",
-        "latex",
         "markdown",
         "php",
         "yaml"
