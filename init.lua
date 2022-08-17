@@ -1,6 +1,9 @@
 vim.api.nvim_exec([[language en_US]], false)
-
 require('set')
+
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 require('packer').startup(function()
     -- packer needs to manage itself
@@ -28,4 +31,3 @@ require("treesitter")
 require("devicons")
 require("statusline")
 require("mappings")
-
