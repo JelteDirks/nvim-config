@@ -1,4 +1,5 @@
 vim.api.nvim_exec([[language en_US]], false)
+
 require('set')
 
 vim.g.loaded_perl_provider = 0
@@ -21,11 +22,33 @@ require('packer').startup(function()
     -- on that bottom b.... ar
     use {'nvim-lualine/lualine.nvim'}
 
-    -- lsp setup goes here
+    use {'williamboman/mason.nvim'}
+    use {'williamboman/mason-lspconfig.nvim'}
     use {'neovim/nvim-lspconfig'}
 end)
 
 vim.cmd([[colorscheme gruvbox]])
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "sumneko_lua",
+        "rust_analyzer",
+        "clangd",
+        "cmake",
+        "cssls",
+        "dockerls",
+        "gopls",
+        "html",
+        "jsonls",
+        "tsserver",
+        "marksman",
+        "intelephense",
+        "taplo",
+        "yamlls",
+    },
+    automatic_installation = true,
+})
 
 require("treesitter")
 require("devicons")
