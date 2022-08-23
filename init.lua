@@ -33,6 +33,7 @@ vim.cmd([[colorscheme gruvbox]])
 require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
+        "bashls",
         "sumneko_lua",
         "rust_analyzer",
         "cssls",
@@ -80,13 +81,21 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
+local lsp_flags = {
+    debounce_text_changes = 100,
+}
 
-require('lspconfig')['rust_analyzer'].setup{
+require('lspconfig')['rust_analyzer'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
 
-require('lspconfig')['tsserver'].setup{
+require('lspconfig')['bashls'].setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+}
+
+require('lspconfig')['tsserver'].setup {
     on_attach = on_attach,
     flags = lsp_flags,
 }
