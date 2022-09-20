@@ -50,7 +50,7 @@ vim.opt.backupskip = "/tmp/*,/var/*,/private/tmp/*" -- dont set backup for files
 
 vim.opt.breakindent = true -- wrapped lines start at the start of the previous line
 
-vim.opt.backspace = "indent" -- allow backspacing over autoindent (TEST PHASE)
+-- vim.opt.backspace = "indent" -- allow backspacing over autoindent (TEST PHASE)
 
 vim.opt.wildignore:append { "*/node_modules/*", "*/target/*" } -- ignore these patterns while expanding
 
