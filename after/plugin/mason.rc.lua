@@ -11,6 +11,8 @@ if (not mlspstatus) then
   print("mason-lspconfig not found")
 end
 
+vim.g.python3_host_prog = "/usr/bin/python3"
+
 mlsp.setup({
   ensure_installed = {
     "sumneko_lua",
@@ -18,5 +20,8 @@ mlsp.setup({
     "ltex",
     "r_language_server",
     "rust_analyzer",
+    "gopls",
+    "clangd",
+    "pyright",
   }
 })
