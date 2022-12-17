@@ -55,7 +55,7 @@ lsp["ltex"].setup({
   capabilities = capabilities,
 })
 
-lsp["r_language_server"].setup({
+lsp["rust_analyzer"].setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })

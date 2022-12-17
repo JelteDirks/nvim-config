@@ -24,6 +24,7 @@ treesitter.setup({
     "yaml",
     "html",
     "latex",
+    "rust",
   },
   highlight = {
     enable = true,

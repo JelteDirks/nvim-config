@@ -18,7 +18,6 @@ mlsp.setup({
     "sumneko_lua",
     "tsserver",
     "ltex",
-    "r_language_server",
     "rust_analyzer",
     "gopls",
     "clangd",
