@@ -2,3 +2,4 @@ plugged/
 pack/
 plugin/
 !after/plugin
+.DS_Store
