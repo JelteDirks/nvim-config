@@ -1,4 +1,4 @@
-local theme = 'gruvbox'
+local theme = 'onedark'
 
 require('lualine').setup {
   options = {
@@ -13,6 +13,8 @@ vim.cmd.colorscheme(theme)
 -- Transparant background
 vim.api.nvim_set_hl(0, "Normal", { bg = 'none' })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = 'none' })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = 'none' })
 
 -- require('lualine').setup({
 --   options = {
