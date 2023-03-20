@@ -1,4 +1,4 @@
-local theme = 'onedark'
+local theme = 'gruvbox'
 
 require('lualine').setup {
   options = {
