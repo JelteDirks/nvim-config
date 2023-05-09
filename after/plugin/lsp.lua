@@ -34,12 +34,20 @@ local on_attach = function(_, bufnr)
       vim.lsp.buf.formatting()
     end
   end, '[F]ormat [F]ile with LSP');
-
 end
 
 require('mason').setup()
 
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'lua_ls', 'gopls' }
+local servers = {
+  'clangd',
+  'rust_analyzer',
+  'pyright',
+  'tsserver',
+  'lua_ls',
+  'gopls',
+  'jsonls',
+  'csharp_ls',
+}
 
 require('mason-lspconfig').setup {
   ensure_installed = servers,
