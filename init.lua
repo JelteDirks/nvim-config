@@ -26,6 +26,9 @@ require('packer').startup(function(use)
     end,
   }
 
+  -- sticky contxt at top of the file
+  use 'nvim-treesitter/nvim-treesitter-context'
+
   use { -- Additional text objects via treesitter
     'nvim-treesitter/nvim-treesitter-textobjects',
     after = 'nvim-treesitter',
