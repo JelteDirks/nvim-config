@@ -39,7 +39,7 @@ end
 require('mason').setup()
 
 local servers = {
-  'clangd',
+  'bufls',
   'rust_analyzer',
   'pyright',
   'tsserver',
@@ -62,6 +62,13 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+-- Setup clangd manually to exclude .proto files from the filetypes
+require('lspconfig')['clangd'].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
+})
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
