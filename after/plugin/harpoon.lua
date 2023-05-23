@@ -14,6 +14,10 @@ nmap('<leader>l', function()
   require('harpoon.ui').nav_file(3)
 end)
 
+nmap('<leader>;', function()
+  require('harpoon.ui').nav_file(4)
+end)
+
 nmap('<leader>mc', function()
   require('harpoon.mark').clear_all()
 end)
