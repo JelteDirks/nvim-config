@@ -3,3 +3,4 @@ pack/
 plugin/
 !after/plugin
 .DS_Store
+.netcoredbg_hist

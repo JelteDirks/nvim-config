@@ -53,6 +53,20 @@ require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
   use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
+
+  use { 'mbbill/undotree' }
+
+  use { 'mfussenegger/nvim-dap' }
+  use { "folke/neodev.nvim" }
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+  use { "nvim-telescope/telescope-dap.nvim",
+    requires = {
+      'mfussenegger/nvim-dap',
+      'nvim-telescope/telescope.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    }
+  }
+  use { 'theHamsta/nvim-dap-virtual-text' }
 end)
 
 require("jelte/init")

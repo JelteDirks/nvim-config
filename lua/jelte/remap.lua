@@ -18,3 +18,4 @@ keymap.set('n', '[d', vim.diagnostic.goto_prev)
 keymap.set('n', ']d', vim.diagnostic.goto_next)
 keymap.set('n', '<leader>ee', vim.diagnostic.open_float)
 keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
