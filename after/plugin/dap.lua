@@ -26,6 +26,14 @@ dap.configurations.cs = {
   },
 }
 
+-- You NEED to override nvim-dap's default highlight groups, AFTER requiring nvim-dap
+-- overrides for catppuccin
+local sign = vim.fn.sign_define
+
+sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = ""})
+sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
+sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = ""})
+
 nmap("<leader>db", function()
   dap.toggle_breakpoint()
 end, "Toggles breakpoint for DAP")
