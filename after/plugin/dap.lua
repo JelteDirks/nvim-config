@@ -31,6 +31,10 @@ nmap("<leader>db", function()
 end, "Toggles breakpoint for DAP")
 
 nmap("<leader>dc", function()
+  dap.run_to_cursor()
+end, "DAP run to cursor")
+
+nmap("<leader>dr", function()
   dap.continue()
 end, "DAP continue")
 
