@@ -5,6 +5,8 @@ keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true }
 keymap.set('n', 'x', '"_x')
 keymap.set('n', '+', '<C-a>')
 keymap.set('n', '-', '<C-x>')
+keymap.set('n', '<C-d>', '<C-d>zz')
+keymap.set('n', '<C-u>', '<C-u>zz')
 keymap.set('n', 'sh', '<C-w>h')
 keymap.set('n', 'sj', '<C-w>j')
 keymap.set('n', 'sk', '<C-w>k')
