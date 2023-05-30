@@ -43,7 +43,11 @@ require('packer').startup(function(use)
   use { "ellisonleao/gruvbox.nvim" }
   use { "catppuccin/nvim", as = "catppuccin" }
 
-  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
+  use 'nvim-tree/nvim-web-devicons'
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }                                         -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
   use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
