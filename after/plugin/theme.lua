@@ -2,21 +2,21 @@ local theme = 'catppuccin'
 --local theme = 'gruvbox'
 
 require("catppuccin").setup({
-  flavour = "mocha",   -- latte, frappe, macchiato, mocha
+  flavour = "mocha", -- latte, frappe, macchiato, mocha
   background = {
     light = "latte",
     dark = "mocha",
   },
   transparent_background = true,
-  show_end_of_buffer = false,   -- show the '~' characters after the end of buffers
+  show_end_of_buffer = false, -- show the '~' characters after the end of buffers
   dim_inactive = {
     enabled = false,
     shade = "dark",
     percentage = 0.15,
   },
-  no_italic = false,      -- Force no italic
-  no_bold = false,        -- Force no bold
-  no_underline = false,   -- Force no underline
+  no_italic = false,    -- Force no italic
+  no_bold = false,      -- Force no bold
+  no_underline = false, -- Force no underline
   styles = {
     comments = { "italic" },
     conditionals = { "italic" },
@@ -95,16 +95,41 @@ require('lualine').setup {
     component_separators = '|',
     section_separators = '',
   },
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { 'branch', 'diff'},
+    lualine_c = {
+      {
+        'filename',
+        file_status = true, -- show file status
+        path = 0,           -- display only filename
+      },
+      'buffers'
+    },
+    lualine_x = {
+      'encoding',
+      'fileformat',
+      {
+        'diagnostics',
+        sources = { 'nvim_diagnostic' },
+        sections = { 'error', 'warn', 'info', 'hint' },
+        symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' }
+      }
+    },
+    lualine_y = {
+      'progress'
+    },
+    lualine_z = {
+      'location'
+    }
+  },
+  extensions = {
+    'fugitive',
+    'nvim-dap-ui',
+  },
 }
 
 vim.cmd.colorscheme(theme)
-
--- Transparant background
---vim.api.nvim_set_hl(0, "Normal", { bg = 'none' })
---vim.api.nvim_set_hl(0, "NormalFloat", { bg = 'none' })
---vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = 'none' })
---vim.api.nvim_set_hl(0, "SignColumn", { bg = 'none' })
-
 
 -- require('lualine').setup({
 --   options = {
