@@ -100,17 +100,5 @@ require("jelte/augroups")
 -- Enable Comment.nvim
 require('Comment').setup()
 
--- Gitsigns
--- See `:help gitsigns.txt`
-require('gitsigns').setup {
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-}
-
 -- Turn on lsp status information
 require('fidget').setup()

@@ -4,8 +4,6 @@ end
 
 local gitsigns = require("gitsigns")
 
--- Gitsigns
--- See `:help gitsigns.txt`
 gitsigns.setup {
   signs = {
     add = { text = '+' },
@@ -27,10 +25,10 @@ nmap("<leader>gsr", function()
   gitsigns.refresh()
 end, "Gitsigns refresh all buffers")
 
-nmap("<leader>gsf", function()
+nmap("<leader>gdf", function()
   gitsigns.preview_hunk()
 end, "Gitsigns preview hunk in floating window")
 
-nmap("<leader>gsi", function()
+nmap("<leader>gdi", function()
   gitsigns.preview_hunk_inline()
 end, "Gitsigns preview hunk inline")
