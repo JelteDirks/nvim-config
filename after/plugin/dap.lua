@@ -30,9 +30,9 @@ dap.configurations.cs = {
 -- overrides for catppuccin
 local sign = vim.fn.sign_define
 
-sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = ""})
-sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = ""})
-sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = ""})
+sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
 
 nmap("<leader>db", function()
   dap.toggle_breakpoint()
@@ -46,15 +46,15 @@ nmap("<leader>dr", function()
   dap.continue()
 end, "DAP continue")
 
-nmap("<leader>di", function ()
+nmap("<leader>di", function()
   dap.step_into()
 end, "DAP step into")
 
-nmap("<leader>du", function ()
+nmap("<leader>du", function()
   dap.step_out()
 end, "DAP step out")
 
-nmap("<leader>do", function ()
+nmap("<leader>do", function()
   dap.step_over()
 end, "DAP step over")
 
@@ -65,5 +65,3 @@ end, "DAP UI open")
 nmap("<leader>dd", function()
   dap.clear_breakpoints()
 end, "DAP clear breakpoints")
-
-
