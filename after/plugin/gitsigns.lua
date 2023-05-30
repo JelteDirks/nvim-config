@@ -17,17 +17,25 @@ nmap("<leader>gp", function()
   gitsigns.prev_hunk()
 end, "Gitsigns go to previous hunk")
 
+nmap("<leader>gn", function()
+  gitsigns.next_hunk()
+end, "Gitsigns go to next hunk")
+
 nmap("<leader>gsh", function()
   gitsigns.select_hunk()
 end, "Gitsigns go to next hunk")
 
 nmap("<leader>gbl", function()
   gitsigns.blame_line()
-end, "Gitsigns go to next hunk")
+end, "Gitsigns blame line")
 
-nmap("<leader>gn", function()
-  gitsigns.next_hunk()
-end, "Gitsigns go to next hunk")
+nmap("<leader>gsh", function()
+  gitsigns.stage_hunk()
+end, "Gitsigns stage hunk")
+
+nmap("<leader>gus", function()
+  gitsigns.undo_stage_hunk()
+end, "Gitsign undo stage hunk")
 
 nmap("<leader>gsr", function()
   gitsigns.reset_hunk()
