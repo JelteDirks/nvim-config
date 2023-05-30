@@ -58,7 +58,6 @@ require('packer').startup(function(use)
 
   use { 'mbbill/undotree' }
 
-  use { 'mfussenegger/nvim-dap' }
   use { "folke/neodev.nvim" }
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
   use { "nvim-telescope/telescope-dap.nvim",
@@ -69,6 +68,25 @@ require('packer').startup(function(use)
     }
   }
   use { 'theHamsta/nvim-dap-virtual-text' }
+  use {
+    "mfussenegger/nvim-dap",
+    opt = true,
+    module = { "dap" },
+    requires = {
+      "theHamsta/nvim-dap-virtual-text",
+      "rcarriga/nvim-dap-ui",
+      "folke/neodev.nvim",
+      "mfussenegger/nvim-dap-python",
+      "nvim-telescope/telescope-dap.nvim",
+      { "mxsdev/nvim-dap-vscode-js", module = { "dap-vscode-js" } },
+      {
+        "microsoft/vscode-js-debug",
+        opt = true,
+        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
+      },
+    },
+    disable = false,
+  }
 end)
 
 require("jelte/init")

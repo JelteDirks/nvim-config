@@ -7,36 +7,21 @@ local dapui = require("dapui")
 
 dapui.setup()
 
+require("dap.javascript")
+require("dap.csharp")
+
 require("telescope").load_extension("dap")
-
-dap.adapters.coreclr = {
-  type = 'executable',
-  command = '/Users/jelte/personal/netcoredbg/bin/netcoredbg',
-  args = { '--interpreter=vscode' }
-}
-
-dap.configurations.cs = {
-  {
-    type = "coreclr",
-    name = "launch - netcoredbg",
-    request = "launch",
-    program = function()
-      return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-    end,
-  },
-}
 
 -- You NEED to override nvim-dap's default highlight groups, AFTER requiring nvim-dap
 -- overrides for catppuccin
 local sign = vim.fn.sign_define
-
 sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
 sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
 sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
 
 nmap("<leader>db", function()
   dap.toggle_breakpoint()
-end, "Toggles breakpoint for DAP")
+end, "DAP toggle breakpoint")
 
 nmap("<leader>dc", function()
   dap.run_to_cursor()
