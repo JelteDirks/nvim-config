@@ -17,13 +17,21 @@ nmap("<leader>gp", function()
   gitsigns.prev_hunk()
 end, "Gitsigns go to previous hunk")
 
+nmap("<leader>gsh", function()
+  gitsigns.select_hunk()
+end, "Gitsigns go to next hunk")
+
+nmap("<leader>gbl", function()
+  gitsigns.blame_line()
+end, "Gitsigns go to next hunk")
+
 nmap("<leader>gn", function()
   gitsigns.next_hunk()
 end, "Gitsigns go to next hunk")
 
 nmap("<leader>gsr", function()
-  gitsigns.refresh()
-end, "Gitsigns refresh all buffers")
+  gitsigns.reset_hunk()
+end, "Gitsigns reset current hunk")
 
 nmap("<leader>gdf", function()
   gitsigns.preview_hunk()
