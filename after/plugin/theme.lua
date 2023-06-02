@@ -97,7 +97,7 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { 'branch', 'diff'},
+    lualine_b = { 'branch', 'diff', 'diagnostics'},
     lualine_c = {
       {
         'filename',
@@ -109,12 +109,6 @@ require('lualine').setup {
     lualine_x = {
       'encoding',
       'fileformat',
-      {
-        'diagnostics',
-        sources = { 'nvim_diagnostic' },
-        sections = { 'error', 'warn', 'info', 'hint' },
-        symbols = { error = ' ', warn = ' ', hint = ' ', info = ' ' }
-      }
     },
     lualine_y = {
       'progress'
