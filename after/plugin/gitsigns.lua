@@ -37,7 +37,7 @@ nmap("<leader>gus", function()
   gitsigns.undo_stage_hunk()
 end, "Gitsign undo stage hunk")
 
-nmap("<leader>gsr", function()
+nmap("<leader>grh", function()
   gitsigns.reset_hunk()
 end, "Gitsigns reset current hunk")
 
