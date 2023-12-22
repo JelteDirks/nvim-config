@@ -64,6 +64,13 @@ for _, lsp in ipairs(servers) do
   }
 end
 
+require('lspconfig')['sourcekit'].setup {
+  cmd = { "xcrun", "sourcekit-lsp" },
+  filetypes = { "swift" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 -- Setup clangd manually to exclude .proto files from the filetypes
 require('lspconfig')['clangd'].setup({
   on_attach = on_attach,
