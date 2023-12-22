@@ -40,14 +40,14 @@ end
 require('mason').setup()
 
 local servers = {
-  'bufls',
   'rust_analyzer',
-  'pyright',
+  'clangd',
+  'pylsp',
   'tsserver',
   'lua_ls',
-  'gopls',
   'jsonls',
-  'csharp_ls',
+  'gopls',
+  'jdtls',
 }
 
 require('mason-lspconfig').setup {
