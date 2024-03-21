@@ -1,10 +1,20 @@
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-  use { -- LSP Configuration & Plugins
+require('lazy').setup({
+  { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
-    requires = {
+    dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
@@ -12,88 +22,65 @@ require('packer').startup(function(use)
       -- Useful status updates for LSP
       'j-hui/fidget.nvim',
     },
-  }
+  },
 
-  use { -- Autocompletion
+  { -- Autocompletion
     'hrsh7th/nvim-cmp',
-    requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
-  }
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+  },
 
-  use { -- Highlight, edit, and navigate code
+  { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    dependencies = 'nvim-treesitter/nvim-treesitter-textobjects',
+    build = function()
       pcall(require('nvim-treesitter.install').update { with_sync = true })
     end,
-  }
+  },
 
   -- sticky contxt at top of the file
-  use 'nvim-treesitter/nvim-treesitter-context'
+  'nvim-treesitter/nvim-treesitter-context',
+  'aznhe21/actions-preview.nvim',
+  'nvim-treesitter/nvim-treesitter-textobjects',
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'lewis6991/gitsigns.nvim',
 
-  use 'aznhe21/actions-preview.nvim'
+  "ellisonleao/gruvbox.nvim",
+  {
+    "catppuccin/nvim",
+    name = "catppuccin"
+  },
 
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
-
-  -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
-
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use { "ellisonleao/gruvbox.nvim" }
-  use { "catppuccin/nvim", as = "catppuccin" }
-
-  use 'nvim-tree/nvim-web-devicons'
-  use {
+  'nvim-tree/nvim-web-devicons',
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }                                         -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
-
-  -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
-
-  use { 'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
-
-  use { 'mbbill/undotree' }
-
-  use { "folke/neodev.nvim" }
-  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
-  use { "nvim-telescope/telescope-dap.nvim",
     requires = {
-      'mfussenegger/nvim-dap',
-      'nvim-telescope/telescope.nvim',
-      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons', opt = true
     }
-  }
-  use { 'theHamsta/nvim-dap-virtual-text' }
-  use {
-    "mfussenegger/nvim-dap",
-    opt = true,
-    module = { "dap" },
-    requires = {
-      "theHamsta/nvim-dap-virtual-text",
-      "rcarriga/nvim-dap-ui",
-      "folke/neodev.nvim",
-      "mfussenegger/nvim-dap-python",
-      "nvim-telescope/telescope-dap.nvim",
-      { "mxsdev/nvim-dap-vscode-js", module = { "dap-vscode-js" } },
-      {
-        "microsoft/vscode-js-debug",
-        opt = true,
-        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out"
-      },
-    },
-    disable = false,
-  }
-end)
+  },
+  'lukas-reineke/indent-blankline.nvim',
+  'numToStr/Comment.nvim',
+  'tpope/vim-sleuth',
+
+  {
+    'nvim-telescope/telescope.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
+
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make',
+    cond = vim.fn.executable 'make' == 1
+  },
+
+  {
+    'ThePrimeagen/harpoon',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
+
+  'mbbill/undotree',
+
+})
 
 require("jelte/init")
 require("jelte/remap")

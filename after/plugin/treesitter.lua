@@ -9,7 +9,6 @@ require('nvim-treesitter.configs').setup {
     'typescript',
     'javascript',
     'json',
-    'go',
     'java',
   },
 

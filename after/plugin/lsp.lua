@@ -46,8 +46,6 @@ local servers = {
   'tsserver',
   'lua_ls',
   'jsonls',
-  'gopls',
-  'jdtls',
 }
 
 require('mason-lspconfig').setup {
@@ -63,13 +61,6 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
-
-require('lspconfig')['sourcekit'].setup {
-  cmd = { "xcrun", "sourcekit-lsp" },
-  filetypes = { "swift" },
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
 
 -- Setup clangd manually to exclude .proto files from the filetypes
 require('lspconfig')['clangd'].setup({

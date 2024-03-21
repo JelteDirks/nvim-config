@@ -12,7 +12,7 @@ end, "Harpoon go to file 2")
 
 nmap('<leader>l', function()
   require('harpoon.ui').nav_file(3)
-end, "Haproon go to file 3")
+end, "Harpoon go to file 3")
 
 nmap('<leader>;', function()
   require('harpoon.ui').nav_file(4)
