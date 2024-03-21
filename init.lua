@@ -383,7 +383,41 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"ThePrimeagen/harpoon",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			local hui = require("harpoon.ui")
+			local hm = require("harpoon.mark")
+			vim.keymap.set("n", "<leader>j", function()
+				hui.nav_file(1)
+			end, { desc = "Harpoon go to file 1" })
 
+			vim.keymap.set("n", "<leader>k", function()
+				hui.nav_file(2)
+			end, { desc = "Harpoon go to file 2" })
+
+			vim.keymap.set("n", "<leader>l", function()
+				hui.nav_file(3)
+			end, { desc = "Haproon go to file 3" })
+
+			vim.keymap.set("n", "<leader>;", function()
+				hui.nav_file(4)
+			end, { desc = "Harpoon go to file 4" })
+
+			vim.keymap.set("n", "<leader>mc", function()
+				hm.clear_all()
+			end, { desc = "Harpoon clean all marks" })
+
+			vim.keymap.set("n", "<leader>mm", function()
+				hm.add_file()
+			end, { desc = "Harpoon add file" })
+
+			vim.keymap.set("n", "<leader>mu", function()
+				hui.toggle_quick_menu()
+			end, { desc = "Harpoon show menu" })
+		end,
+	},
 	{ -- Autoformat
 		"stevearc/conform.nvim",
 		opts = {
@@ -550,6 +584,9 @@ require("lazy").setup({
 					harpoon = true,
 					mason = true,
 					treesitter = true,
+					mini = {
+						enabled = true,
+					},
 					native_lsp = {
 						enabled = true,
 						virtual_text = {
@@ -565,7 +602,6 @@ require("lazy").setup({
 							information = { "underline" },
 						},
 					},
-					-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 				},
 			})
 		end,
