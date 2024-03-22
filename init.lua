@@ -7,6 +7,11 @@ vim.opt.showmode = false
 -- vim.opt.clipboard = 'unnamedplus'
 vim.opt.breakindent = true
 vim.opt.undofile = true
+vim.opt.hlsearch = false
+vim.opt.hidden = true
+vim.opt.laststatus = 2
+vim.opt.shell = "/bin/zsh"
+vim.opt.backupskip = "/tmp/*,/var/*,/private/tmp/*"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = "yes"
@@ -17,10 +22,12 @@ vim.opt.splitbelow = true
 vim.wo.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.opt.tabstop = 2
+vim.opt.background = "dark"
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true
+vim.opt.colorcolumn = "80"
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 -- Preview substitutions live, as you type!
@@ -148,7 +155,7 @@ require("lazy").setup({
 				"n",
 				"<leader>gdf",
 				gitsigns.preview_hunk,
-				{ desc = "Gitsigns preview hunk in floating window" }
+				{ desc = "Gitsigns preview hunk floating window" }
 			)
 			vim.keymap.set("n", "<leader>gdi", gitsigns.preview_hunk_inline, { desc = "Gitsigns preview hunk inline" })
 		end,
@@ -193,6 +200,11 @@ require("lazy").setup({
 	--
 	-- Use the `dependencies` key to specify the dependencies of a particular plugin
 
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
@@ -269,7 +281,6 @@ require("lazy").setup({
 			end, { desc = "[S]earch [N]eovim files" })
 		end,
 	},
-
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -285,6 +296,7 @@ require("lazy").setup({
 			-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 			-- used for completion, annotations and signatures of Neovim apis
 			{ "folke/neodev.nvim", opts = {} },
+			{ "aznhe21/actions-preview.nvim", opts = {} },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -305,7 +317,7 @@ require("lazy").setup({
 						"[W]orkspace [S]ymbols"
 					)
 					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					map("<leader>ca", require("actions-preview").code_actions, "[C]ode [A]ction")
 					map("K", vim.lsp.buf.hover, "Hover Documentation")
 					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -340,7 +352,7 @@ require("lazy").setup({
 				-- gopls = {},
 				pyright = {},
 				rust_analyzer = {},
-				-- tsserver = {},
+				tsserver = {},
 
 				lua_ls = {
 					-- cmd = {...},
@@ -553,57 +565,51 @@ require("lazy").setup({
 		"catppuccin/nvim",
 		name = "catppuccin",
 		priority = 1000,
+		opts = {
+			flavour = "mocha", -- latte, frappe, macchiato, mocha
+			background = {
+				light = "latte",
+				dark = "mocha",
+			},
+			transparent_background = true,
+			show_end_of_buffer = false, -- show the '~' characters after the end of buffers
+			no_italic = false, -- Force no italic
+			no_bold = false, -- Force no bold
+			no_underline = false, -- Force no underline
+			styles = {
+				comments = { "italic" },
+				conditionals = { "italic" },
+			},
+			integrations = {
+				cmp = true,
+				gitsigns = true,
+				nvimtree = true,
+				telescope = true,
+				harpoon = true,
+				mason = true,
+				treesitter = true,
+				mini = {
+					enabled = true,
+				},
+				native_lsp = {
+					enabled = true,
+					virtual_text = {
+						errors = { "italic" },
+						hints = { "italic" },
+						warnings = { "italic" },
+						information = { "italic" },
+					},
+					underlines = {
+						errors = { "underline" },
+						hints = { "underline" },
+						warnings = { "underline" },
+						information = { "underline" },
+					},
+				},
+			},
+		},
 		init = function()
 			vim.cmd.colorscheme("catppuccin")
-
-			require("catppuccin").setup({
-				flavour = "mocha", -- latte, frappe, macchiato, mocha
-				background = {
-					light = "latte",
-					dark = "mocha",
-				},
-				transparent_background = true,
-				show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-				dim_inactive = {
-					enabled = false,
-					shade = "dark",
-					percentage = 0.15,
-				},
-				no_italic = false, -- Force no italic
-				no_bold = false, -- Force no bold
-				no_underline = false, -- Force no underline
-				styles = {
-					comments = { "italic" },
-					conditionals = { "italic" },
-				},
-				integrations = {
-					cmp = true,
-					gitsigns = true,
-					nvimtree = true,
-					telescope = true,
-					harpoon = true,
-					mason = true,
-					treesitter = true,
-					mini = {
-						enabled = true,
-					},
-					native_lsp = {
-						enabled = true,
-						virtual_text = {
-							errors = { "italic" },
-							hints = { "italic" },
-							warnings = { "italic" },
-							information = { "italic" },
-						},
-						underlines = {
-							errors = { "underline" },
-							hints = { "underline" },
-							warnings = { "underline" },
-							information = { "underline" },
-						},
-					},
-				},
-			})
 		end,
 	},
 
