@@ -352,7 +352,7 @@ require("lazy").setup({
 				-- gopls = {},
 				pyright = {},
 				rust_analyzer = {},
-				tsserver = {},
+				-- tsserver = {},
 
 				lua_ls = {
 					-- cmd = {...},
