@@ -393,6 +393,9 @@ require("lazy").setup({
 					end,
 				},
 			})
+
+			-- Don't show inline diagnostics in the file
+			vim.diagnostic.config({ virtual_text = false })
 		end,
 	},
 	{
