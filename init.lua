@@ -355,25 +355,15 @@ require("lazy").setup({
 				gopls = {},
 				pyright = {},
 				rust_analyzer = {
+					-- DIsable virtual text for diagnostics, they clutter the view
 					handlers = {
 						["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 							virtual_text = false,
 							signs = true,
 						}),
 					},
-					settings = {
-						["rust-analyzer"] = {
-							imports = {
-								granularity = {
-									group = "module",
-								},
-								prefix = "self",
-							},
-						},
-					},
 				},
 				tsserver = {},
-
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
@@ -409,22 +399,6 @@ require("lazy").setup({
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-
-						-- if server_name == "rust_analyzer" then
-						-- 	function printTable(t, indent)
-						-- 		indent = indent or ""
-						-- 		for key, value in pairs(t) do
-						-- 			if type(value) == "table" then
-						-- 				print(indent .. key .. ": ")
-						-- 				printTable(value, indent .. "  ")
-						-- 			else
-						-- 				print(indent .. key .. ": " .. tostring(value))
-						-- 			end
-						-- 		end
-						-- 	end
-						-- 	printTable(server)
-						-- end
-
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
@@ -474,10 +448,7 @@ require("lazy").setup({
 		opts = {
 			notify_on_error = false,
 			format_on_save = function(bufnr)
-				-- Disable "format_on_save lsp_fallback" for languages that don't
-				-- have a well standardized coding style. You can add additional
-				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true, rs = true }
+				local disable_filetypes = { c = true, cpp = true, rust = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
