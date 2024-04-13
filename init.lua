@@ -14,12 +14,11 @@ vim.opt.shell = "/bin/zsh"
 vim.opt.backupskip = "/tmp/*,/var/*,/private/tmp/*"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes:3"
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.wo.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.opt.tabstop = 2
 vim.opt.background = "dark"
@@ -298,7 +297,7 @@ require("lazy").setup({
 			{ "folke/neodev.nvim", opts = {} },
 			{ "aznhe21/actions-preview.nvim", opts = {} },
 		},
-		config = function()
+		config = function(_, opts)
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 				callback = function(event)
@@ -332,6 +331,10 @@ require("lazy").setup({
 							callback = vim.lsp.buf.clear_references,
 						})
 					end
+
+					if client and client.server_capabilities.inlayHintProvider then
+						vim.lsp.inlay_hint.enable(event.buf, true)
+					end
 				end,
 			})
 
@@ -351,7 +354,24 @@ require("lazy").setup({
 				clangd = {},
 				gopls = {},
 				pyright = {},
-				rust_analyzer = {},
+				rust_analyzer = {
+					handlers = {
+						["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+							virtual_text = false,
+							signs = true,
+						}),
+					},
+					settings = {
+						["rust-analyzer"] = {
+							imports = {
+								granularity = {
+									group = "module",
+								},
+								prefix = "self",
+							},
+						},
+					},
+				},
 				tsserver = {},
 
 				lua_ls = {
@@ -389,13 +409,29 @@ require("lazy").setup({
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for tsserver)
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+
+						-- if server_name == "rust_analyzer" then
+						-- 	function printTable(t, indent)
+						-- 		indent = indent or ""
+						-- 		for key, value in pairs(t) do
+						-- 			if type(value) == "table" then
+						-- 				print(indent .. key .. ": ")
+						-- 				printTable(value, indent .. "  ")
+						-- 			else
+						-- 				print(indent .. key .. ": " .. tostring(value))
+						-- 			end
+						-- 		end
+						-- 	end
+						-- 	printTable(server)
+						-- end
+
 						require("lspconfig")[server_name].setup(server)
 					end,
 				},
 			})
 
 			-- Don't show inline diagnostics in the file
-			vim.diagnostic.config({ virtual_text = false })
+			-- vim.diagnostic.config({ virtual_text = false })
 		end,
 	},
 	{
