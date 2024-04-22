@@ -352,18 +352,7 @@ require("lazy").setup({
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
 				clangd = {},
-				gopls = {},
 				pyright = {},
-				rust_analyzer = {
-					-- DIsable virtual text for diagnostics, they clutter the view
-					handlers = {
-						["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-							virtual_text = false,
-							signs = true,
-						}),
-					},
-				},
-				tsserver = {},
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
@@ -718,7 +707,6 @@ require("lazy").setup({
 			ensure_installed = {
 				"bash",
 				"c",
-				"html",
 				"lua",
 				"markdown",
 				"vim",
@@ -726,7 +714,6 @@ require("lazy").setup({
 				"diff",
 				"git_rebase",
 				"gitcommit",
-				"go",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = false,
