@@ -431,7 +431,7 @@ require("lazy").setup({
 		opts = {
 			notify_on_error = false,
 			format_on_save = function(bufnr)
-				local disable_filetypes = { c = true, cpp = true, rust = true }
+				local disable_filetypes = { c = true, cpp = true } -- rust = true
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -595,9 +595,10 @@ require("lazy").setup({
 				},
 			},
 		},
-		init = function()
-			vim.cmd.colorscheme("catppuccin")
-		end,
+		lazy = true,
+		-- init = function()
+		-- 	vim.cmd.colorscheme("catppuccin")
+		-- end,
 	},
 
 	{ -- You can easily change to a different colorscheme.
@@ -606,7 +607,7 @@ require("lazy").setup({
 		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
 		"folke/tokyonight.nvim",
-		lazy = true,
+		priority = 1000,
 		init = function()
 			-- Load the colorscheme here.
 			-- Like many other themes, this one has different styles, and you could load
@@ -669,7 +670,7 @@ require("lazy").setup({
 			require("lualine").setup({
 				options = {
 					icons_enabled = true,
-					theme = "catppuccin",
+					theme = "auto",
 					component_separators = "|",
 					section_separators = "",
 				},
