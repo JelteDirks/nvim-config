@@ -97,18 +97,9 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
--- NOTE: Here is where you install your plugins.
 require("lazy").setup({
+	{ import = "plugins" },
+
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
@@ -222,6 +213,11 @@ require("lazy").setup({
 						require("telescope.themes").get_dropdown(),
 					},
 				},
+				pickers = {
+					colorscheme = {
+						enable_preview = true,
+					},
+				},
 			})
 
 			-- Enable Telescope extensions if they are installed
@@ -239,6 +235,11 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>sc", function()
+				vim.cmd("Lazy load gruvbox.nvim")
+				vim.cmd("Lazy load tokyonight.nvim")
+				builtin.colorscheme()
+			end, { desc = "Color picker" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
@@ -535,81 +536,6 @@ require("lazy").setup({
 		end,
 	},
 
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		init = function()
-			vim.cmd.colorscheme("catppuccin")
-		end,
-		opts = {
-			flavour = "mocha", -- latte, frappe, macchiato, mocha
-			background = {
-				light = "latte",
-				dark = "mocha",
-			},
-			transparent_background = true,
-			show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-			no_italic = false, -- Force no italic
-			no_bold = false, -- Force no bold
-			no_underline = false, -- Force no underline
-			styles = {
-				comments = { "italic" },
-				conditionals = { "italic" },
-			},
-			integrations = {
-				cmp = true,
-				gitsigns = true,
-				nvimtree = true,
-				telescope = true,
-				harpoon = true,
-				mason = true,
-				treesitter = true,
-				mini = {
-					enabled = true,
-				},
-				native_lsp = {
-					enabled = true,
-					virtual_text = {
-						errors = { "italic" },
-						hints = { "italic" },
-						warnings = { "italic" },
-						information = { "italic" },
-					},
-					underlines = {
-						errors = { "underline" },
-						hints = { "underline" },
-						warnings = { "underline" },
-						information = { "underline" },
-					},
-				},
-			},
-		},
-	},
-
-	{ -- You can easily change to a different colorscheme.
-		-- Change the name of the colorscheme plugin below, and then
-		-- change the command in the config to whatever the name of that colorscheme is.
-		--
-		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		"folke/tokyonight.nvim",
-		lazy = true,
-		config = true,
-		init = function()
-			--vim.cmd.colorscheme("tokyonight-night")
-			--vim.cmd.hi("Comment gui=none")
-		end,
-	},
-	{
-		"ellisonleao/gruvbox.nvim",
-		config = true,
-		lazy = true,
-		init = function()
-			-- vim.cmd.colorscheme("gruvbox")
-		end,
-	},
-
-	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
