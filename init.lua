@@ -136,18 +136,11 @@ require("lazy").setup({
 			gitsigns.setup()
 			vim.keymap.set("n", "[g", gitsigns.prev_hunk, { desc = "Gitsigns go to previous hunk" })
 			vim.keymap.set("n", "]g", gitsigns.next_hunk, { desc = "Gitsigns go to next hunk" })
-			vim.keymap.set("n", "<leader>gsh", gitsigns.select_hunk, { desc = "Gitsigns go to next hunk" })
 			vim.keymap.set("n", "<leader>gbl", gitsigns.blame_line, { desc = "Gitsigns blame line" })
-			vim.keymap.set("n", "<leader>gsh", gitsigns.stage_hunk, { desc = "Gitsigns stage hunk" })
-			vim.keymap.set("n", "<leader>gus", gitsigns.undo_stage_hunk, { desc = "Gitsign undo stage hunk" })
-			vim.keymap.set("n", "<leader>grh", gitsigns.reset_hunk, { desc = "Gitsigns reset current hunk" })
-			vim.keymap.set(
-				"n",
-				"<leader>gdf",
-				gitsigns.preview_hunk,
-				{ desc = "Gitsigns preview hunk floating window" }
-			)
-			vim.keymap.set("n", "<leader>gdi", gitsigns.preview_hunk_inline, { desc = "Gitsigns preview hunk inline" })
+			vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { desc = "Gitsigns stage hunk" })
+			vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk, { desc = "Gitsign undo stage hunk" })
+			vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { desc = "Gitsigns reset hunk" })
+			vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk, { desc = "Gitsigns preview hunk floating" })
 		end,
 	},
 
@@ -551,6 +544,8 @@ require("lazy").setup({
 			end, { desc = "Previous todo comment" })
 
 			vim.keymap.set("n", "<leader>tt", ":TodoTelescope<CR>", { desc = "Telescope the todo list" })
+			vim.keymap.set("n", "<leader>tq", ":TodoQuickFix<CR>", { desc = "Todos in quickfix list" })
+			vim.keymap.set("n", "<leader>tc", ":TodoLocList<CR>", { desc = "Todos in loclist" })
 		end,
 	},
 	{
