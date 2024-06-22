@@ -8,12 +8,7 @@ return {
 				buflisted = true,
 				bufhidden = "hide",
 			},
-			columns = {
-				"icon",
-				"permissions",
-				"size",
-				"mtime",
-			},
+			columns = {},
 			constrain_cursor = "editable",
 			keymaps = {
 				["g?"] = "actions.show_help",
