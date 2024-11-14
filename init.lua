@@ -52,6 +52,13 @@ vim.keymap.set("n", "<up>", ":resize +1<Return>", { desc = "Resize +1" })
 vim.keymap.set("n", "<down>", ":resize -1<Return>", { desc = "Resize -1" })
 vim.keymap.set("n", "<leader>ex", vim.cmd.Ex, { desc = "Alias for :Explore" })
 
+-- Jump to next closing curly bracket
+vim.api.nvim_set_keymap('n', ']}', '/}<CR>', { noremap = true, silent = true })
+
+-- Jump to previous opening curly bracket
+vim.api.nvim_set_keymap('n', '[{', '?{<CR>', { noremap = true, silent = true })
+
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -262,6 +269,9 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
+      -- To get Java LSP
+      "nvim-java/nvim-java",
+
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
@@ -326,7 +336,22 @@ require("lazy").setup({
 						}),
 					},
 				},
-				tsserver = {},
+        jdtls = {
+          settings = {
+            java = {
+              configuration = {
+                runtimes = {
+                  {
+                    name = "graalvm-jdk-21",
+                    path = "/Library/Java/JavaVirtualMachines/graalvm-jdk-21.0.4+8.1/Contents/Home",
+                    default = true,
+                  }
+                }
+              }
+            }
+          }
+        },
+				ts_ls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
@@ -351,18 +376,21 @@ require("lazy").setup({
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for tsserver)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
-			})
+      require("mason-lspconfig").setup({
+        handlers = {
+          require("java").setup {
+            -- jdtls settings
+          },
+          function(server_name)
+            local server = servers[server_name] or {}
+            -- This handles overriding only values explicitly passed
+            -- by the server configuration above. Useful when disabling
+            -- certain features of an LSP (for example, turning off formatting for tsserver)
+            server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+            require("lspconfig")[server_name].setup(server)
+          end,
+        },
+      })
 
 			-- Don't show inline diagnostics in the file
 			-- vim.diagnostic.config({ virtual_text = false })
@@ -559,6 +587,7 @@ require("lazy").setup({
 			ensure_installed = {
 				"bash",
 				"c",
+        "cpp",
 				"html",
 				"lua",
 				"markdown",
@@ -577,6 +606,7 @@ require("lazy").setup({
 				"dockerfile",
 				"json",
 				"asm",
+        "java",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = false,
