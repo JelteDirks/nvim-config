@@ -335,16 +335,6 @@ require("lazy").setup({
           filetypes = { "glsl", "vert", "frag", "comp" }
         },
 				clangd = {},
-				pyright = {},
-				rust_analyzer = {
-					handlers = {
-						["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-							virtual_text = false, -- Disable virtual text for diagnostics, they clutter the view
-							signs = true,
-						}),
-					},
-				},
-				ts_ls = {},
 				lua_ls = {
 					settings = {
 						Lua = {
