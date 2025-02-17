@@ -269,9 +269,6 @@ require("lazy").setup({
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 
-      -- To get Java LSP
-      "nvim-java/nvim-java",
-
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
 			{ "j-hui/fidget.nvim", opts = {} },
@@ -328,29 +325,13 @@ require("lazy").setup({
 				clangd = {},
 				pyright = {},
 				rust_analyzer = {
-					-- Disable virtual text for diagnostics, they clutter the view
 					handlers = {
 						["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-							virtual_text = false,
+							virtual_text = false, -- Disable virtual text for diagnostics, they clutter the view
 							signs = true,
 						}),
 					},
 				},
-        jdtls = {
-          settings = {
-            java = {
-              configuration = {
-                runtimes = {
-                  {
-                    name = "graalvm-jdk-21",
-                    path = "/Library/Java/JavaVirtualMachines/graalvm-jdk-21.0.4+8.1/Contents/Home",
-                    default = true,
-                  }
-                }
-              }
-            }
-          }
-        },
 				ts_ls = {},
 				lua_ls = {
 					settings = {
@@ -378,9 +359,6 @@ require("lazy").setup({
 
       require("mason-lspconfig").setup({
         handlers = {
-          require("java").setup {
-            -- jdtls settings
-          },
           function(server_name)
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
