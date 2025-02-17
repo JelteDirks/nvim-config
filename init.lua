@@ -43,9 +43,9 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.filetype.add({
   extension = {
     glsl = "glsl",
-    vert = "vert",
-    frag = "frag",
-    comp = "comp",
+    vert = "glsl",
+    frag = "glsl",
+    comp = "glsl",
   }
 })
 
