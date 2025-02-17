@@ -464,7 +464,8 @@ require("lazy").setup({
 				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
-					autocomplete = false,
+					autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
+					--autocomplete = false,
 				},
 
 				-- For an understanding of why these mappings were
