@@ -319,9 +319,21 @@ require("lazy").setup({
 				end,
 			})
 
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-			local servers = {
+      vim.filetype.add({
+        extension = {
+          glsl = "glsl",
+          vert = "vert",
+          frag = "frag",
+          comp = "comp",
+        }
+      })
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      local servers = {
+        glsl_analyzer = {
+          filetypes = { "glsl", "vert", "frag", "comp" }
+        },
 				clangd = {},
 				pyright = {},
 				rust_analyzer = {
@@ -566,6 +578,7 @@ require("lazy").setup({
 				"bash",
 				"c",
         "cpp",
+        "glsl",
 				"html",
 				"lua",
 				"markdown",
