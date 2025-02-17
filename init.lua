@@ -480,23 +480,11 @@ require("lazy").setup({
 				--
 				-- No, but seriously. Please read `:help ins-completion`, it is really good!
 				mapping = cmp.mapping.preset.insert({
-					-- Select the [n]ext item
 					["<C-n>"] = cmp.mapping.select_next_item(),
-					-- Select the [p]revious item
 					["<C-p>"] = cmp.mapping.select_prev_item(),
-
-					-- Accept ([y]es) the completion.
-					--  This will auto-import if your LSP supports it.
-					--  This will expand snippets if the LSP sent a snippet.
 					["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
-					-- Manually trigger a completion from nvim-cmp.
-					--  Generally you don't need this, because nvim-cmp will display
-					--  completions whenever it has completion options available.
 					["<C-Space>"] = cmp.mapping.complete({}),
 
-					-- <c-l> will move you to the right of each of the expansion locations.
-					-- <c-h> is similar, except moving you backwards.
 					["<C-l>"] = cmp.mapping(function()
 						if luasnip.expand_or_locally_jumpable() then
 							luasnip.expand_or_jump()
@@ -507,9 +495,6 @@ require("lazy").setup({
 							luasnip.jump(-1)
 						end
 					end, { "i", "s" }),
-
-					-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-					--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 				}),
 				sources = {
 					{ name = "nvim_lsp" },
@@ -579,7 +564,6 @@ require("lazy").setup({
 				"c",
         "cpp",
         "glsl",
-				"html",
 				"lua",
 				"markdown",
 				"vim",
@@ -590,14 +574,10 @@ require("lazy").setup({
 				"git_config",
 				"gitattributes",
 				"gitignore",
-				"go",
-				"rust",
 				"lua",
 				"make",
-				"dockerfile",
 				"json",
 				"asm",
-        "java",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = false,
