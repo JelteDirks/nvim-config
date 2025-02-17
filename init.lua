@@ -558,7 +558,6 @@ require("lazy").setup({
 				"c",
         "cpp",
         "glsl",
-				"lua",
 				"markdown",
 				"vim",
 				"vimdoc",
