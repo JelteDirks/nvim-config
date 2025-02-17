@@ -40,6 +40,15 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+vim.filetype.add({
+  extension = {
+    glsl = "glsl",
+    vert = "vert",
+    frag = "frag",
+    comp = "comp",
+  }
+})
+
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
@@ -319,14 +328,6 @@ require("lazy").setup({
 				end,
 			})
 
-      vim.filetype.add({
-        extension = {
-          glsl = "glsl",
-          vert = "vert",
-          frag = "frag",
-          comp = "comp",
-        }
-      })
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
@@ -576,6 +577,7 @@ require("lazy").setup({
 			auto_install = false,
 			highlight = {
 				enable = true,
+        additional_vim_regex_highlighting = false,
 			},
 			indent = { enable = true },
 		},
