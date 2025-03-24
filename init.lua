@@ -323,7 +323,7 @@ require("lazy").setup({
 					end
 
 					if client and client.server_capabilities.inlayHintProvider then
-						vim.lsp.inlay_hint.enable(event.buf, false) -- disable for now
+						vim.lsp.inlay_hint.enable(false, { bufnr = 0 }) -- disable for now
 					end
 				end,
 			})
@@ -465,8 +465,8 @@ require("lazy").setup({
 				},
 				completion = {
 					completeopt = "menu,menuone,noinsert",
-					autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
-					--autocomplete = false,
+					--autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
+					autocomplete = false,
 				},
 
 				-- For an understanding of why these mappings were
