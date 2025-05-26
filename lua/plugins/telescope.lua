@@ -1,3 +1,5 @@
+vim.notify("lua/plugins/telescope.lua", vim.log.levels.INFO)
+
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -28,7 +30,28 @@ return {
     },
     config = function(_, opts)
       local telescope = require("telescope")
+      local localopts = {
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown(),
+          },
+        },
+      }
+
+      vim.tbl_deep_extend("force", opts, localopts)
+
       telescope.setup(opts)
+
+      ok, err = pcall(telescope.load_extension, "fzf")
+      if not ok then
+        vim.notify("fzf extension could not be loaded", vim.log.levels.WARN)
+      end
+
+      ok, err = pcall(telescope.load_extension, "ui-select")
+      if not ok then
+        vim.notify("ui-select extensions could not be loaded", vim.log.levels.WARN)
+      end
+
     end,
   }
 }
