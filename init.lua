@@ -1,5 +1,6 @@
-require("core.settings")
+vim.notify("init.lua", vim.log.levels.INFO)
 
+require("core.settings")
 require("core.lazy")
 
 local lazy_opts = {
