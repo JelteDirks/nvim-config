@@ -22,6 +22,9 @@ return {
         "git_config",
         "gitattributes",
         "gitignore",
+        "html",
+        "css",
+        "javascript",
       },
       auto_install = false,
       highlight = {

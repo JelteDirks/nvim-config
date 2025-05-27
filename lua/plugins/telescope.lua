@@ -42,16 +42,24 @@ return {
 
       telescope.setup(opts)
 
-      ok, err = pcall(telescope.load_extension, "fzf")
+      local ok
+      ok, _ = pcall(telescope.load_extension, "fzf")
       if not ok then
         vim.notify("fzf extension could not be loaded", vim.log.levels.WARN)
       end
 
-      ok, err = pcall(telescope.load_extension, "ui-select")
+      ok, _ = pcall(telescope.load_extension, "ui-select")
       if not ok then
         vim.notify("ui-select extensions could not be loaded", vim.log.levels.WARN)
       end
 
+      vim.keymap.set("n", "<leader>fd", function()
+        require("telescope.builtin").diagnostics()
+      end, { desc = "Find diagnostics" })
+
+      vim.keymap.set("n", "<leader>FD", function()
+        require("telescope.builtin").diagnostics({bufnr = 0})
+      end, { desc = "Find all diagnostics from current buffer" })
     end,
   }
 }
