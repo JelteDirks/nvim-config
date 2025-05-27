@@ -16,13 +16,54 @@ return {
       },
     },
     config = function()
+
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+      vim.lsp.config("*", {
+        capabilities = capabilities,
+      })
+
       vim.lsp.config("biome", {
         cmd = {"npx", "biome", "lsp-proxy" }
       });
 
-      vim.lsp.enable({ "clangd" , "biome" , "lua_ls"})
+      vim.lsp.config("html", {
+        cmd = {"npx", "vscode-html-language-server", "--stdio" },
+        filetypes = { "html" },
+        configurationSection = { "html" },
+      })
+
+      vim.lsp.enable({
+        "clangd" ,
+        "biome" ,
+        "lua_ls",
+        "html",
+      })
 
       vim.diagnostic.config({ virtual_text = true })
+
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("LspKeymaps", { clear = true }),
+        callback = function(event)
+
+          local opts = { buffer = event.buf }
+
+          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+          vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
+          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+
+        end,
+      })
+
+      vim.keymap.set("n", "<leader>FS", function()
+        require("telescope.builtin").lsp_document_symbols()
+      end, { desc = "Find diagnostics" })
+
+      vim.keymap.set("n", "<leader>fs", function()
+        require("telescope.builtin").lsp_workspace_symbols()
+      end, { desc = "Find diagnostics" })
+
     end,
   }
 }
