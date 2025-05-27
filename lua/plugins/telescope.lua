@@ -53,13 +53,31 @@ return {
         vim.notify("ui-select extensions could not be loaded", vim.log.levels.WARN)
       end
 
+      local builtin = require("telescope.builtin")
+
       vim.keymap.set("n", "<leader>fd", function()
-        require("telescope.builtin").diagnostics()
+        builtin.diagnostics()
       end, { desc = "Find diagnostics" })
 
+      vim.keymap.set("n", "<leader>fk", function()
+        builtin.keymaps()
+      end, { desc = "Search lines with grep" })
+
+      vim.keymap.set("n", "<leader>fg", function()
+        builtin.live_grep()
+      end, { desc = "Search lines with grep" })
+
       vim.keymap.set("n", "<leader>FD", function()
-        require("telescope.builtin").diagnostics({bufnr = 0})
+        builtin.diagnostics({bufnr = 0})
       end, { desc = "Find all diagnostics from current buffer" })
+
+      vim.keymap.set("n", "<leader>fb", function()
+        builtin.buffers()
+      end, { desc = "Find all open buffers" })
+
+      vim.keymap.set("n", "<leader>ff", function()
+        builtin.find_files()
+      end, { desc = "Find all files in the working directory" })
     end,
   }
 }
