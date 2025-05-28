@@ -55,9 +55,13 @@ return {
 
       local builtin = require("telescope.builtin")
 
-      vim.keymap.set("n", "<leader>fd", function()
-        builtin.diagnostics()
+      vim.keymap.set("n", "<leader>fh", function()
+        builtin.help_tags()
       end, { desc = "Find diagnostics" })
+
+      vim.keymap.set("n", "<leader>fd", function()
+              builtin.diagnostics()
+            end, { desc = "Find diagnostics" })
 
       vim.keymap.set("n", "<leader>fk", function()
         builtin.keymaps()
