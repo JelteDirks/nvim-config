@@ -44,30 +44,44 @@ return {
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("LspKeymaps", { clear = true }),
-        callback = function(event)
-          local opts = { buffer = event.buf }
+        callback = function(attach_event)
+          local opts = { buffer = attach_event.buf }
 
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
           vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          local client = vim.lsp.get_client_by_id(attach_event.data.client_id)
+          local lsp_attach_group = "lsp-attach-highlights"
 
-          if client and client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-              buffer = event.buf,
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, attach_event.buf) then
+            local highlight_augroup = vim.api.nvim_create_augroup(lsp_attach_group, { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = attach_event.buf,
+              group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
             })
 
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-              buffer = event.buf,
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = attach_event.buf,
+              group = highlight_augroup,
               callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = vim.api.nvim_create_augroup("lsp-detach-highlight", { clear = true }),
+              callback = function(detach_event)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = lsp_attach_group, buffer = detach_event.buf }
+              end,
             })
           end
 
-          if client and client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, attach_event.buf) then
+            vim.keymap.set("n", "grh", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = attach_event.buf })
+            end, { desc = "Toggle inlay hints on or off"})
           end
 
         end,
