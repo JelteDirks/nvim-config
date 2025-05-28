@@ -26,7 +26,11 @@ return {
         "css",
         "javascript",
       },
-      auto_install = false,
+      auto_install = true,
+      indent = {
+        enable = true,
+        disable = { "python", "yaml" }
+      },
       highlight = {
         enable = true,
         disable = function(lang, buf)
