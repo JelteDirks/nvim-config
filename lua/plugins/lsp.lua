@@ -32,23 +32,12 @@ return {
         configurationSection = { "html" },
       })
 
-      vim.lsp.config('rust_analyzer', {
-        settings = {
-          ['rust-analyzer'] = {
-            diagnostics = {
-              enable = true,
-            }
-          }
-        }
-      })
-
       vim.lsp.enable({
         "clangd",
         "biome",
         "lua_ls",
         "html",
         "texlab",
-        "rust_analyzer",
       })
 
       vim.diagnostic.config({ virtual_text = true })
