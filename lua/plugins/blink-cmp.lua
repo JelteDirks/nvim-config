@@ -1,3 +1,5 @@
+vim.notify("lua/plugins/blink-cmp.lua", vim.log.levels.INFO)
+
 return {
   {
     'saghen/blink.cmp',
@@ -31,7 +33,14 @@ return {
       },
 
       completion = {
-        documentation = { auto_show = false },
+        documentation = { auto_show = true },
+        trigger = {
+          show_on_insert_on_trigger_character = false,
+          show_on_keyword = false,
+          show_on_trigger_character = false,
+          show_on_accept_on_trigger_character = false,
+          show_on_x_blocked_trigger_characters = {},
+        },
       },
 
       sources = {
