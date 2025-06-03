@@ -7,6 +7,41 @@ return {
     },
     keys = {
       {
+        '<leader>dc',
+        function()
+          require("dap").continue()
+        end,
+        desc = 'Continue (DAP)',
+      },
+      {
+        '<leader>du',
+        function()
+          require("dap").step_out()
+        end,
+        desc = 'Step out (DAP)',
+      },
+      {
+        '<leader>dn',
+        function()
+          require("dap").step_over()
+        end,
+        desc = 'Step over (DAP)',
+      },
+      {
+        '<leader>ds',
+        function()
+          require("dap").step_into()
+        end,
+        desc = 'Step into (DAP)',
+      },
+      {
+        '<leader>db',
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = 'Toggle breakpoint (DAP)',
+      },
+      {
         '<leader>dui',
         function()
           require('dapui').toggle()
@@ -21,8 +56,6 @@ return {
       dapui.setup()
 
       dap.listeners.after.event_initialized['dapui_config'] = dapui.open
-      dap.listeners.before.event_terminated['dapui_config'] = dapui.close
-      dap.listeners.before.event_exited['dapui_config'] = dapui.close
     end
   }
 }
