@@ -15,29 +15,46 @@ return {
           },
         },
       },
+      "saghen/blink.cmp",
     },
     config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       vim.lsp.config("*", {
         capabilities = capabilities,
       })
 
-      vim.lsp.config("biome", {
-        cmd = { "npx", "biome", "lsp-proxy" }
-      });
+      vim.lsp.config("ts_ls", {
+        cmd = { "npx", "typescript-language-server", "--stdio" },
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+      })
 
       vim.lsp.config("html", {
         cmd = { "npx", "vscode-html-language-server", "--stdio" },
         filetypes = { "html" },
-        configurationSection = { "html" },
+        root_markers = { "package.json", ".git" },
+      })
+
+      vim.lsp.config("cssls", {
+        cmd = { "npx", "vscode-css-language-server", "--stdio" },
+        filetypes = { "css", "scss", "less" },
+        root_markers = { "package.json", ".git" },
+      })
+
+      vim.lsp.config("jsonls", {
+        cmd = { "npx", "vscode-json-language-server", "--stdio" },
+        filetypes = { "json", "jsonc" },
+        root_markers = { "package.json", ".git" },
       })
 
       vim.lsp.enable({
         "clangd",
-        "biome",
-        "lua_ls",
+        "ts_ls",
         "html",
+        "cssls",
+        "jsonls",
+        "lua_ls",
         "texlab",
       })
 
@@ -94,7 +111,6 @@ return {
           end
         end,
       })
-
 
 
       vim.keymap.set("n", "<leader>FS", function()
