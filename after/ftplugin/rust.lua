@@ -12,6 +12,11 @@ local function nmap(lhs, rhs, opts)
   vim.keymap.set("n", lhs, rhs, opts)
 end
 
+nmap("gra", function()
+  vim.cmd.RustLsp("codeAction")
+  vim.cmd.RustLsp("codeAction")
+end, { desc = "List code actions (RustLsp)" })
+
 vmap("<Space>rjl", function()
   vim.cmd.RustLsp("joinLines")
 end, { desc = "Join next line with cursor line smartly (RustLsp)" });
