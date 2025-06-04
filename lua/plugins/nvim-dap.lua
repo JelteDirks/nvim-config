@@ -124,26 +124,14 @@ return {
           type = "codelldb",
           request = "launch",
           program = function()
-            local cwd = vim.fn.getcwd()
-            local has_make = vim.fn.executable("make")
-            local has_makefile = vim.fn.filereadable(cwd .. "/Makefile") == 1 or
-                vim.fn.filereadable(cwd .. "/makefile") == 1
-
-            if has_make and has_makefile then
-              print("building with make")
-              local make_result = vim.fn.system("make")
-              if vim.v.shell_error ~= 0 then
-                vim.notify("make failed", vim.log.levels.ERROR)
-                return
-              end
-            end
-
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
           cwd = '${workspaceFolder}',
           stopOnEntry = false,
         },
       }
+
+      dap.configurations.c = dap.configurations.cpp
 
       dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     end
