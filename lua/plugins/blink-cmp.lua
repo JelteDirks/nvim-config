@@ -35,13 +35,14 @@ return {
       completion = {
         documentation = { auto_show = true },
         trigger = {
-          show_on_insert_on_trigger_character = false,
-          show_on_keyword = false,
-          show_on_trigger_character = false,
-          show_on_accept_on_trigger_character = false,
+          show_on_insert_on_trigger_character = true,
+          show_on_keyword = true,
+          show_on_trigger_character = true,
+          show_on_accept_on_trigger_character = true,
           show_on_x_blocked_trigger_characters = {},
         },
       },
+
 
       sources = {
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
@@ -49,6 +50,10 @@ return {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
+      
+      enabled = function()
+        return vim.g.completion
+      end,
 
       snippets = { preset = 'luasnip' },
       -- See :h blink-cmp-config-fuzzy for more information

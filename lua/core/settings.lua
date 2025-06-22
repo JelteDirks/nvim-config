@@ -1,5 +1,6 @@
 vim.notify("lua/core/settings.lua")
 
+vim.g.completion = true
 vim.g.colorscheme = "gruvbox"
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"

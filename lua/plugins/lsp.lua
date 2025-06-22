@@ -101,12 +101,6 @@ return {
               end,
             })
           end
-
-          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, attach_event.buf) then
-            nmap("grh", function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = attach_event.buf })
-            end, { desc = "Toggle inlay hints on or off" })
-          end
         end,
       })
 
